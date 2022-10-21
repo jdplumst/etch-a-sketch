@@ -1,4 +1,9 @@
+// Select elements
 const containerDiv = document.querySelector('.container');
+const btn = document.querySelector('button');
+
+// Default grid size
+let size = 16;
 
 // Create the grid of size n x n
 function createGrid(n) {
@@ -19,7 +24,7 @@ function createGrid(n) {
     for (let i = 0; i < n; i++) {
         for (let j = 0; j < n; j++) {
             divArr[i][j] = document.createElement('div');
-            console.log(divArr[i][j]);
+            // console.log(divArr[i][j]);
             divArr[i][j].classList.add('item');
             divArr[i][j].style.gridRowStart = i+1;
             divArr[i][j].style.gridRowEnd = i+2;
@@ -30,4 +35,13 @@ function createGrid(n) {
     }
 }
 
-window.onload = createGrid(32);
+// Create a size x size grid by default when the page loads
+window.onload = createGrid(size);
+
+btn.addEventListener('click', () => {
+    while (true) {
+        size = prompt('Enter the number of squares per side of the grid. (Maximum: 100)');
+        if (Number.isInteger(parseInt(Number(size))) && size <= 100 && size > 0) break;
+    }
+    createGrid(size);
+})

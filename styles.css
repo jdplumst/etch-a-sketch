@@ -1,3 +1,17 @@
+h1 {
+    text-align: center;
+    font-weight: bold;
+}
+
+button {
+    margin: auto;
+    margin-bottom: 20px;
+    display: block;
+    width: 100px;
+    height: 40px;
+    background-image: linear-gradient(to bottom right, #7575dd, #eb1736);
+}
+
 .container {
     display: grid;
     margin: auto;
