@@ -1,9 +1,19 @@
 // Select elements
 const containerDiv = document.querySelector('.container');
 const btn = document.querySelector('button');
+let items = document.querySelectorAll('.item');
 
 // Default grid size
 let size = 16;
+let temp = 16;
+
+// Create empy array of divs for grid items
+let divArr = [];
+
+// Shade a cell in the grid
+function shade() {
+    this.style.backgroundColor = 'black';
+}
 
 // Create the grid of size n x n
 function createGrid(n) {
@@ -15,7 +25,7 @@ function createGrid(n) {
     containerDiv.gridTemplateColumns = 'repeat(n, auto)';
     
     // Create 2D array
-    let divArr = [];
+    divArr = [];
     for (let i = 0; i < n; i++) {
         divArr[i] = new Array(2);
     }
@@ -33,6 +43,19 @@ function createGrid(n) {
             containerDiv.appendChild(divArr[i][j]);
         }
     }
+
+    // Remove hover function for old grid
+    items.forEach((item) => {
+        item.removeEventListener('mouseover', shade)
+    });
+
+    // Select new grid
+    items = document.querySelectorAll('.item');
+
+    // Add hover function for new grid
+    items.forEach((item) => {
+        item.addEventListener('mouseover', shade)
+    });
 }
 
 // Create a size x size grid by default when the page loads
@@ -40,8 +63,11 @@ window.onload = createGrid(size);
 
 btn.addEventListener('click', () => {
     while (true) {
-        size = prompt('Enter the number of squares per side of the grid. (Maximum: 100)');
-        if (Number.isInteger(parseInt(Number(size))) && size <= 100 && size > 0) break;
+        temp = prompt('Enter the number of squares per side of the grid. (Maximum: 100)');
+        if ((Number.isInteger(parseInt(Number(temp))) && temp <= 100 && temp > 0) 
+        || temp === null) break;
     }
+    if (temp === null) return;
+    size = temp;
     createGrid(size);
-})
+});
