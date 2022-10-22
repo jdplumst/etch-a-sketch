@@ -12,7 +12,31 @@ let divArr = [];
 
 // Shade a cell in the grid
 function shade() {
-    this.style.backgroundColor = 'black';
+    // If cell is white, set it to a random color and store original random color
+    let currColor = window.getComputedStyle(this).backgroundColor;
+    // console.log(window.getComputedStyle(this).backgroundColor);
+    if (currColor === 'rgb(255, 255, 255)') {
+        this.style.setProperty('--original-r', Math.floor(Math.random()*255));
+        this.style.setProperty('--original-g', Math.floor(Math.random()*255));
+        this.style.setProperty('--original-b', Math.floor(Math.random()*255));
+        this.style.backgroundColor = 'rgb(' + 
+        window.getComputedStyle(this).getPropertyValue('--original-r') +
+        ',' + window.getComputedStyle(this).getPropertyValue('--original-g') + 
+        ',' + window.getComputedStyle(this).getPropertyValue('--original-b') + ')';
+    } else {
+        // If cell is not white, set it to be 10% darker than the original random color
+        currColor = currColor.substring(4, currColor.length - 1)
+            .replace(/ /g, '').split(',');
+        let r = currColor[0];
+        let g = currColor[1];
+        let b = currColor[2];
+        let originalRed = window.getComputedStyle(this).getPropertyValue('--original-r');
+        let originalGreen = window.getComputedStyle(this).getPropertyValue('--original-g');
+        let originalBlue = window.getComputedStyle(this).getPropertyValue('--original-b');
+        this.style.backgroundColor = 'rgb(' + Math.floor(r - originalRed * 0.1) + 
+        ',' + Math.floor(g - originalGreen * 0.1) + 
+        ',' + Math.floor(b - originalBlue * 0.1) + ')'; 
+    }
 }
 
 // Create the grid of size n x n
