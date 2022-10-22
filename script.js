@@ -14,7 +14,6 @@ let divArr = [];
 function shade() {
     // If cell is white, set it to a random color and store original random color
     let currColor = window.getComputedStyle(this).backgroundColor;
-    // console.log(window.getComputedStyle(this).backgroundColor);
     if (currColor === 'rgb(255, 255, 255)') {
         this.style.setProperty('--original-r', Math.floor(Math.random()*255));
         this.style.setProperty('--original-g', Math.floor(Math.random()*255));
